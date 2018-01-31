@@ -17,8 +17,9 @@ Sequel.migration do
 
     create_table :laps do
       primary_key :id
+      column :number, Integer, null: false
       column :ms, Integer, null: false
-      column :time_string, String, null: false, text: false
+      # column :time_string, String, null: false, text: false
       foreign_key :driver_id, :drivers, null: false, index: true
     end
   end

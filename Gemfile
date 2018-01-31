@@ -11,5 +11,6 @@ gem 'sequel'
 gem 'sequel_pg'
 
 group :development, :test do
-  gem 'pry'
+  gem 'pry-byebug'
+  gem 'shotgun'
 end

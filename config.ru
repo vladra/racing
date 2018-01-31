@@ -5,4 +5,5 @@ if dev
   logger = Logger.new($stdout)
 end
 
-run App.freeze.app
+require_relative 'app'
+run App
