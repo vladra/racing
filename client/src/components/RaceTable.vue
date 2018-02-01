@@ -6,10 +6,12 @@
       fixed
       prop="number"
       label="Number"
+      width="100"
     ></el-table-column>
     <el-table-column
       prop="name"
       label="Name"
+      width="200"
     ></el-table-column>
     <el-table-column
       v-for="(n, i) in maxLaps"

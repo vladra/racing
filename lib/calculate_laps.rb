@@ -8,7 +8,7 @@ class CalculateLaps
     @max_laps = @laps.map(&:number).max
 
     drivers_hash = @drivers.map do |d|
-      d.to_hash.merge(laps: d.laps.map(&:to_hash))
+      d.to_hash.merge(laps: d.laps.map(&:to_hash), total_ms: d.laps.map(&:ms).sum)
     end
     @hash = @race.to_hash.merge(drivers: drivers_hash)
   end

@@ -32,6 +32,11 @@ export default {
 
       return { labels, datasets };
     },
+
+    fastestTime() {
+      const laps = this.drivers.map(d => Math.min(...d.laps.map(l => l.ms)));
+      return Math.min(...laps);
+  },
   },
 
   methods: {
@@ -45,12 +50,15 @@ export default {
               callback: (v, i, values) => {
                 return msToTime(v);
               },
+              stepValue: 1000 * 60,
+              steps: 10,
+              max: this.fastestTime + 1000 * 60 * 5
             },
           }],
         },
         tooltips: {
           callbacks: {
-            label: (item, _data) => msToTime(item.yLabel),
+            label: (item, data) => data.datasets[item.datasetIndex].label + ' ' + msToTime(item.yLabel),
           }
         },
       };

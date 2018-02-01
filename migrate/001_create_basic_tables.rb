@@ -11,7 +11,7 @@ Sequel.migration do
       primary_key :id
       column :name, String, text: false, null: false
       column :number, String, text: false, null: false
-      column :vehicle, String, text: false, null: false
+      column :vehicle, String, text: false
       foreign_key :race_id, :races, null: false, index: true
     end
 
@@ -19,7 +19,6 @@ Sequel.migration do
       primary_key :id
       column :number, Integer, null: false
       column :ms, Integer, null: false
-      # column :time_string, String, null: false, text: false
       foreign_key :driver_id, :drivers, null: false, index: true
     end
   end
