@@ -16,6 +16,8 @@ class App
           driver_hash[:laps] << lap_hash
         end
 
+        driver_hash[:total_ms] = driver.laps.sum(&:ms)
+
         h[:drivers] << driver_hash
       end
 

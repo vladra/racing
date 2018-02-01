@@ -6,6 +6,7 @@ gem 'puma'
 
 gem 'pg'
 gem 'rake'
+gem 'rack-cors'
 gem 'roda'
 gem 'sequel'
 gem 'sequel_pg'

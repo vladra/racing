@@ -5,5 +5,13 @@ if dev
   logger = Logger.new($stdout)
 end
 
+require 'rack/cors'
+use Rack::Cors do
+  allow do
+    origins '*'
+    resource '*', headers: :any, methods: %i[get post options]
+  end
+end
+
 require_relative 'app'
 run App
