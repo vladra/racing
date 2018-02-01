@@ -1,5 +1,7 @@
 require_relative 'db'
 
+Sequel::Model.plugin :json_serializer
+
 if ENV['RACK_ENV'] == 'development'
   Sequel::Model.cache_associations = false
 end

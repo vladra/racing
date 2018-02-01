@@ -26,6 +26,11 @@ export default new Vuex.Store({
       const drivers = state.race.drivers || [];
       return drivers.sort(sortTime);
     },
+
+    maxLaps: (state, getters) => {
+      const lapsAmount = getters.drivers.map(({ laps = [] }) => laps.length);
+      return Math.max(1, ...lapsAmount);
+    },
   },
 
   mutations: {
