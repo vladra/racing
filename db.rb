@@ -1,3 +1,3 @@
 require 'sequel'
 
-DB = Sequel.connect('postgres://localhost/racing_dev')
+DB = Sequel.connect(ENV['DATABASE_URL'] || 'postgres://localhost/racing_dev')

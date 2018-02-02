@@ -12,6 +12,5 @@ if ENV['RACK_ENV'] == 'development'
   require 'logger'
   DB.loggers << Logger.new($stdout)
 else
-  Sequel::Model.freeze_descendents
   DB.freeze
 end
