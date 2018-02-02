@@ -1,6 +1,18 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:9393';
+if (process.env.NODE_ENV === 'production') {
+  axios.defaults.baseURL = 'http://racing.dralo.me';
+} else {
+  axios.defaults.baseURL = 'http://localhost:9393';
+}
+
+const fetchRaces = () =>
+  axios
+    .get('/api/races')
+    .then(response => response.data)
+    .catch((error) => {
+      throw error;
+    });
 
 const fetchRace = id =>
   axios
@@ -10,4 +22,4 @@ const fetchRace = id =>
       throw error;
     });
 
-export { fetchRace };
+export { fetchRaces, fetchRace };

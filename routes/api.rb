@@ -2,12 +2,20 @@ require_relative '../lib/calculate_laps'
 
 class App
   route 'api' do |r|
-    r.get 'races', Integer do |id|
-      race = Race.with_laps(id)
+    r.on 'races' do
+      # GET /api/races
+      r.is do
+        Race.all.to_json
+      end
 
-      h = CalculateLaps.new(race).call
+      # GET /api/races/:id
+      r.get Integer do |id|
+        race = Race.with_laps(id)
 
-      h.to_json
+        h = CalculateLaps.new(race).call
+
+        h.to_json
+      end
     end
   end
 end

@@ -1,9 +1,8 @@
 <template>
-  <el-container>
+  <el-container class="container">
     <el-header class="header">
       <el-menu mode="horizontal" class="nav-menu" :router="true">
-        <el-menu-item index="/">Home</el-menu-item>
-        <el-menu-item index="/race/1">Race</el-menu-item>
+        <el-menu-item index="/">Race results</el-menu-item>
         <el-menu-item index="/about">About</el-menu-item>
       </el-menu>
     </el-header>
@@ -15,8 +14,27 @@
 </template>
 
 <style>
-.nav-menu {
-  max-width: 1000px;
+* {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+  color: #333;
+}
+
+p {
+  font-size: 14px;
+}
+
+.container {
+  max-width: 1200px;
   margin: 0 auto;
+}
+
+.title {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.supplementary {
+  font-size: 12px;
 }
 </style>

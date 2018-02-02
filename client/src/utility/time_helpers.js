@@ -1,8 +1,8 @@
-const pad = function(str, size = 2) {
+const pad = (str, size = 2) => {
   let s = String(str);
-  while (s.length < (size || 2)) {s = "0" + s;}
+  while (s.length < (size || 2)) { s = `0${s}`; }
   return s;
-}
+};
 
 const msToTime = (ms) => {
   if (!ms) return '-';
@@ -13,4 +13,13 @@ const msToTime = (ms) => {
   return `${pad(h)}:${pad(m)}:${pad(s)}:${pad(mm, 3)}`;
 };
 
-export { msToTime };
+const sortDriversByTime = (left, right) => {
+  const lLaps = left.laps.length;
+  const rLaps = right.laps.length;
+  if (lLaps === rLaps) {
+    return left.total_ms - right.total_ms;
+  }
+  return rLaps - lLaps;
+};
+
+export { msToTime, sortDriversByTime };

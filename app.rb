@@ -5,7 +5,6 @@ require 'pry' if ENV['RACK_ENV'] == 'development'
 require_relative 'models'
 
 class App < Roda
-
   plugin :multi_route
 
   Dir['./routes/*.rb'].each{|file| require file }

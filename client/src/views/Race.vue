@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div v-loading="loadingRace">
     <race-table
       :drivers="drivers"
-      :maxLaps="maxLaps"
-    ></race-table>
+      :maxLaps="maxLaps">
+    </race-table>
 
     <div class="graph-buttons">
       <el-button-group>
@@ -17,8 +17,8 @@
     <race-chart
       :drivers="drivers"
       :maxLaps="maxLaps"
-      :type="type"
-    ></race-chart>
+      :type="type">
+    </race-chart>
   </div>
 </template>
 
@@ -41,6 +41,7 @@ export default {
   },
 
   computed: {
+    ...mapState(['loadingRace', 'race']),
     ...mapGetters(['drivers', 'maxLaps']),
   },
 
@@ -52,7 +53,9 @@ export default {
 
   created() {
     const id = this.$route.params.id;
-    this.$store.dispatch('fetchRace', id);
+    if (this.race.id !== id) {
+      this.$store.dispatch('fetchRace', id);
+    }
   }
 }
 </script>

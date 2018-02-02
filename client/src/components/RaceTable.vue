@@ -1,12 +1,15 @@
 <template>
   <el-table
     :data="drivers"
+    size="small"
+    empty-text="No data"
+    :stripe="true"
   >
     <el-table-column
       fixed
       prop="number"
-      label="Number"
-      width="100"
+      label="#"
+      width="50"
     ></el-table-column>
     <el-table-column
       prop="name"
