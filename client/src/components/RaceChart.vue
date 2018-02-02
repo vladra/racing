@@ -1,5 +1,5 @@
 <template>
-  <line-chart :height="800" :chart-data="data" :options="options()"></line-chart>
+  <line-chart :height="600" :chart-data="data" :options="options()"></line-chart>
 </template>
 
 <script>
@@ -47,9 +47,10 @@ export default {
 
       const datasets = this.drivers.reduce((acc, driver, i) => {
         const data = {
-          label: driver.name,
-          backgroundColor: 'rgba(0, 0, 0, 0)',
+          label: `(${driver.number}) ${driver.name}`,
+          backgroundColor: colors[i],
           borderColor: colors[i],
+          fill: false,
           hidden: this.isChartLineHidden(i),
           data: driver[this.type].map(l => l.ms),
         }
@@ -83,9 +84,14 @@ export default {
           }],
         },
         tooltips: {
+          intersect: false,
           callbacks: {
             label: (item, data) => data.datasets[item.datasetIndex].label + ' ' + msToTime(item.yLabel),
           }
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: false,
         },
         legend: {
           onClick: (e, item) => {
