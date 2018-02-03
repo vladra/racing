@@ -5,10 +5,13 @@
       :maxLaps="maxLaps">
     </race-table>
 
+    <br />
+    <p class="suplementary" style="text-align: center;">
+      Graphs
+    </p>
     <div class="graph-buttons">
       <el-button-group>
         <el-button :type="buttonType('laps')" size="mini" @click="type = 'laps'">Laps</el-button>
-        <el-button :type="buttonType('cumulative_laps')" size="mini" @click="type = 'cumulative_laps'">Cumulative laps</el-button>
         <el-button :type="buttonType('gaps')" size="mini" @click="type = 'gaps'">Gaps</el-button>
         <el-button :type="buttonType('cumulative_gaps')" size="mini" @click="type = 'cumulative_gaps'">Cumulative gaps</el-button>
       </el-button-group>

@@ -53,6 +53,7 @@ export default {
           fill: false,
           hidden: this.isChartLineHidden(i),
           data: driver[this.type].map(l => l.ms),
+          pointHitRadius: 15,
         }
         acc.push(data)
         return acc;
@@ -77,21 +78,20 @@ export default {
         scales: {
           yAxes: [{
             ticks: {
+              fontSize: '10',
               callback: (v, i, values) => {
-                return msToTime(v);
+                return msToTime(v, true);
               },
             },
           }],
         },
         tooltips: {
-          intersect: false,
           callbacks: {
             label: (item, data) => data.datasets[item.datasetIndex].label + ' ' + msToTime(item.yLabel),
           }
         },
         hover: {
           mode: 'nearest',
-          intersect: false,
         },
         legend: {
           onClick: (e, item) => {
@@ -105,3 +105,13 @@ export default {
   },
 }
 </script>
+
+<style>
+canvas {
+  user-select: none;
+  outline: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+</style>
+
