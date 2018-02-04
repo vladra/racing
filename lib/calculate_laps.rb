@@ -8,7 +8,15 @@ class CalculateLaps
     @max_laps = @laps.map(&:number).max
 
     drivers_hash = @drivers.map do |d|
-      d.to_hash.merge(laps: d.laps.map(&:to_hash), total_ms: d.laps.map(&:ms).sum)
+      laps = @max_laps.times.map do |i|
+        number = i + 1
+        d.laps.find { |l| l.number == i + 1 } || null_lap(number, d)
+      end
+      d.to_hash.merge(
+        laps: laps.map(&:to_hash),
+        total_ms: d.laps.map(&:ms).sum,
+        total_laps: d.laps.count { |l| l[:ms] }
+      )
     end
     @hash = @race.to_hash.merge(drivers: drivers_hash)
   end
@@ -28,17 +36,15 @@ class CalculateLaps
       (1..@max_laps).each do |number|
         lap = driver[:laps].find { |l| l[:number] == number }
 
-        skip = true unless lap
+        skip = true if null_lap?(lap)
         next if skip
         lap = lap.dup
 
-        if number == 1
-          cumulative << lap
-        else
+        unless number == 1
           prev_lap = cumulative.find { |l| l[:number] == number - 1 }
           lap[:ms] += prev_lap[:ms]
-          cumulative << lap
         end
+        cumulative << lap
       end
 
       driver[:cumulative_laps] = cumulative
@@ -52,7 +58,7 @@ class CalculateLaps
       (1..@max_laps).each do |number|
         lap = driver[:laps].find { |l| l[:number] == number }
 
-        next gaps << { id: nil, number: number, ms: nil, driver_id: driver[:id] } unless lap
+        next gaps << null_lap(number, driver) if null_lap?(lap)
 
         fastest = fastest_lap_time(number)
         lap = lap.dup
@@ -72,7 +78,7 @@ class CalculateLaps
       (1..@max_laps).each do |number|
         lap = driver[:cumulative_laps].find { |l| l[:number] == number }
 
-        skip = true unless lap
+        skip = true if null_lap?(lap)
         next if skip
         lap = lap.dup
 
@@ -99,5 +105,13 @@ class CalculateLaps
       .select { |l| l[:number] == number }
       .map { |l| l[:ms] }
       .min
+  end
+
+  def null_lap(number, driver)
+    { id: nil, number: number, ms: nil, driver_id: driver[:id] }
+  end
+
+  def null_lap?(lap)
+    lap && lap[:ms] ? false : true
   end
 end

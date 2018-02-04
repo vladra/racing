@@ -17,8 +17,8 @@ const msToTime = (ms, hideHours = false) => {
 };
 
 const sortDriversByTime = (left, right) => {
-  const lLaps = left.laps.length;
-  const rLaps = right.laps.length;
+  const lLaps = left.total_laps;
+  const rLaps = right.total_laps;
   if (lLaps === rLaps) {
     return left.total_ms - right.total_ms;
   }

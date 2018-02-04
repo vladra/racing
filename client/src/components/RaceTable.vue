@@ -1,8 +1,11 @@
 <template>
   <el-table
+    ref="raceTable"
     :data="drivers"
     size="small"
     empty-text="No data"
+    highlight-current-row
+    @row-click="handleRowClick"
     :stripe="true">
     <el-table-column
       fixed
@@ -33,6 +36,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 import { msToTime } from '../utility/time_helpers';
 
 export default {
@@ -40,10 +45,30 @@ export default {
 
   props: ['drivers', 'maxLaps'],
 
+  computed: {
+    ...mapState(['selectedDriver']),
+  },
+
   methods: {
+    ...mapActions(['selectDriver']),
+
     msToTime(_row, _col, ms) {
       return msToTime(ms);
     },
+
+    handleRowClick(row) {
+      if (row.id === this.selectedDriver) {
+        this.$refs.raceTable.setCurrentRow();
+        this.selectDriver(null);
+      } else {
+        this.$refs.raceTable.setCurrentRow(row);
+        this.selectDriver(row.id);
+      }
+    },
+  },
+
+  destroyed() {
+    this.selectDriver(null);
   },
 }
 </script>

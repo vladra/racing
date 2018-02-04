@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 import LineChart from './LineChart';
 import { msToTime } from '../utility/time_helpers';
@@ -39,6 +39,7 @@ export default {
   },
 
   computed: {
+    ...mapState(['selectedDriver']),
     ...mapGetters(['isChartLineHidden']),
 
     data() {
@@ -54,8 +55,10 @@ export default {
           hidden: this.isChartLineHidden(i),
           data: driver[this.type].map(l => l.ms),
           pointHitRadius: 15,
-        }
-        acc.push(data)
+          borderWidth: this.selectedDriver ? (driver.id == this.selectedDriver ? 5 : 1) : 3,
+          pointRadius: 2,
+        };
+        acc.push(data);
         return acc;
       }, []);
 

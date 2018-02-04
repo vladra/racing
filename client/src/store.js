@@ -6,6 +6,7 @@ import { sortDriversByTime } from './utility/time_helpers';
 
 Vue.use(Vuex);
 
+const SELECT_DRIVER = 'SELECT_DRIVER';
 const SET_RACES = 'SET_RACES';
 const SET_RACE = 'SET_RACE';
 const LOAD_RACES = 'LOAD_RACES';
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     hiddenChartLines: [],
     loadingRaces: false,
     loadingRace: false,
+    selectedDriver: null,
   },
 
   getters: {
@@ -28,8 +30,8 @@ export default new Vuex.Store({
     },
 
     maxLaps: (state, getters) => {
-      const lapsAmount = getters.drivers.map(({ laps = [] }) => laps.length);
-      return Math.max(1, ...lapsAmount);
+      const lapsAmount = getters.drivers.map(({ total_laps }) => total_laps);
+      return Math.max(0, ...lapsAmount);
     },
 
     isChartLineHidden: (state) => {
@@ -38,6 +40,7 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    [SELECT_DRIVER](state, id) { state.selectedDriver = id },
     [LOAD_RACES](state, isLoading) { state.loadingRaces = isLoading; },
     [LOAD_RACE](state, isLoading) { state.loadingRace = isLoading; },
 
@@ -80,6 +83,10 @@ export default new Vuex.Store({
 
     toggleChartLines({ commit }, { i, add }) {
       commit(TOGGLE_CHART_LINE, { i, add });
+    },
+
+    selectDriver({ commit }, id) {
+      commit(SELECT_DRIVER, id);
     },
   },
 });

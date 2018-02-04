@@ -58,7 +58,7 @@ irb = proc do |env|
   else
     "#{FileUtils::RUBY} -S #{command}"
   end
-  sh "#{cmd} -r /app/models"
+  sh "#{cmd} -r #{File.expand_path('./models')}"
 end
 
 desc "Open irb shell in test mode"
