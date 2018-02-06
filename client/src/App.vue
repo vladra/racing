@@ -10,6 +10,12 @@
     <el-main>
       <router-view/>
     </el-main>
+
+    <el-footer>
+      <p class="copyright">
+        © created by Vladimir Dralo
+      </p>
+    </el-footer>
   </el-container>
 </template>
 
@@ -36,5 +42,12 @@ p {
 
 .supplementary {
   font-size: 12px;
+}
+
+.copyright {
+  font-size: 8px;
+  text-align: center;
+  font-style: italic;
+  color: #BBB;
 }
 </style>
