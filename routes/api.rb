@@ -5,7 +5,7 @@ class App
     r.on 'races' do
       # GET /api/races
       r.is do
-        Race.all.to_json
+        Race.reverse_order(:date).all.to_json
       end
 
       # GET /api/races/:id

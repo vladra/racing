@@ -9,10 +9,15 @@
     :stripe="true">
     <el-table-column
       fixed
+      type="index"
+      width="40"
+    ></el-table-column>
+    <el-table-column
+      fixed
       prop="number"
-      label="#"
-      width="40">
-    </el-table-column>
+      label="№"
+      width="50"
+    ></el-table-column>
     <el-table-column
       prop="name"
       label="Name"
